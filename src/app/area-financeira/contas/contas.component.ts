@@ -11,4 +11,5 @@ import { Conta } from '../compartilhados/conta.model';
 })
 export class ContasComponent {
   contas = input.required<Conta[]>();
+
 }
