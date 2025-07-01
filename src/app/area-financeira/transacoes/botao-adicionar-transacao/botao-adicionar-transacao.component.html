@@ -7,39 +7,44 @@
         <img src="icones/moeda.svg" alt="">
         <h2 class="text-x1">Adicionar transação</h2>
     </ng-container>
-    <form class="form text-md" (ngSubmit)="aoSubmeter()">
+    <form class="form text-md" (ngSubmit)="aoSubmeter()" ngNativeValidate>
         <label class="label-grupo">
             Nome da transação
-            <input class="input" type="text" name="nome-transacao">
+            <input class="input" type="text" name="nome-transacao" [(ngModel)]="novaTransacaoForm.nome">
         </label>
 
         <fieldset class="grupo-tipo-transacao" required>
             <legend class="legend">Tipo da transação</legend>
-
-            <label class="label-grupo-radio">
-                <input type="radio" name="tipo-transacao" required>
+            @for (tipo of tiposTransacoes | keyvalue; track tipo.key) {
+                <label class="label-grupo-radio">
+                    <input type="radio" [value]="tipo.value" name="tipo-transacao" [(ngModel)]="novaTransacaoForm.tipo" required>
+                    {{ tipo.value }}
+                </label>
+            }
+            <!-- <label class="label-grupo-radio">
+                <input type="radio" value="Saque" name="tipo-transacao" [(ngModel)]="novaTransacaoForm.tipo" required>
                 Saque
             </label>
 
             <label class="label-grupo-radio">
-                <input type="radio" name="tipo-transacao" required>
+                <input type="radio" value="Depósito" name="tipo-transacao" [(ngModel)]="novaTransacaoForm.tipo" required>
                 Depósito
-            </label>
+            </label> -->
         </fieldset>
 
         <label class="label-grupo">
             Valor
-            <input class="input" type="number" name="valor-transacao" min="0.01" step="0.01" placeholder="R$ 500,00" required>
+            <input class="input" type="number" name="valor-transacao" min="0.01" step="0.01" placeholder="R$ 500,00" [(ngModel)]="novaTransacaoForm.valor" required>
         </label>
 
         <label class="label-grupo">
             Data da transação
-            <input class="input" type="date" name="data-transacao" required>
+            <input class="input" type="date" name="data-transacao" [(ngModel)]="novaTransacaoForm.data" required>
         </label>
 
         <label class="label-grupo">
             Conta Bancária
-            <select name="conta-transacao" class="input select-conta-transacao" required>
+            <select name="conta-transacao" class="input select-conta-transacao" [(ngModel)]="novaTransacaoForm.conta" required>
                 <option value="" selected disabled>Selecione a conta</option>
                 <option value="Anybank">Anybank</option>
                 <option value="Bytebank">Bytebank</option>
