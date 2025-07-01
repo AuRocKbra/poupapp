@@ -1,8 +1,14 @@
+.dialog::backdrop {
+  opacity: 0.5;
+  background: var(--texto);
+}
+
 .dialog {
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
   border: 0;
   border-radius: 1.5rem;
   padding: 2.5rem;
@@ -12,9 +18,21 @@
   color: var(--texto);
 }
 
-.fechar-modal{
-    position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
-    cursor: pointer;
+.fechar-modal { 
+  position: absolute; 
+  top: 2.5rem; 
+  right: 2.5rem; 
+  cursor: pointer; 
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
