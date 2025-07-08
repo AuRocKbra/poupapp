@@ -1,9 +1,10 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { BotaoComponent } from '../../../compartilhados/botao/botao.component';
 import { ModalComponent } from "../../../compartilhados/modal/modal.component";
 import {FormsModule} from "@angular/forms";
 import { TipoTransacao, Transacao } from '../../compartilhados/transacao.model';
 import { KeyValuePipe } from '@angular/common';
+import { Conta } from '../../compartilhados/conta.model';
 
 
 @Component({
@@ -23,9 +24,10 @@ export class BotaoAdicionarTransacaoComponent {
     conta:''
   }
   transacaoCriada = output<Transacao>();
-
+  contas = input.required<Conta[]>();
   abrirModal(){
       this.modalAberta.set(true);
+      console.log(this.contas())
   }
 
   aoSubmeter(){
