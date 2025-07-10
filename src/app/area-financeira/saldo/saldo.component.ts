@@ -11,5 +11,5 @@ import { CardComponent } from "../compartilhados/card/card.component";
 })
 export class SaldoComponent {
   tituloSaldo:string = "Saldo disponível:";
-  saldo = input.required<number>();
+  saldo = input.required<any>();
 }

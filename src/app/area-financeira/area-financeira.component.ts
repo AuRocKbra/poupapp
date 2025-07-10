@@ -12,7 +12,7 @@ import { Transacao, TipoTransacao } from './compartilhados/transacao.model';
   styleUrl: './area-financeira.component.css'
 })
 export class AreaFinanceiraComponent {
-  saldo = 0;
+  saldoTotalInicial = signal<number>(0);
 
   transacoes = signal<Transacao[]>([]);
 
@@ -25,8 +25,29 @@ export class AreaFinanceiraComponent {
     });
   });
 
-  calculaSaldoAtualizado(conta:Conta){
-    return conta.saldo + 20;
+  calculaSaldoTotal(contas:Conta[]){
+    let saldoTotal = 0; 
+    return this.contas().map((conta)=>{
+      saldoTotal = saldoTotal + conta.saldo;
+    });
+  }
+
+  calculaSaldoAtualizado(contaInicial:Conta){
+    const transacoesDaConta = this.transacoes().filter((transacao)=>{
+      return transacao.conta === contaInicial.nome;
+    });
+    const novoSaldo = transacoesDaConta.reduce((acc,transacao)=>{
+      switch(transacao.tipo){
+        case TipoTransacao.DEPOSITO:
+          return acc + transacao.valor;
+        case TipoTransacao.SAQUE:
+          return acc - transacao.valor;
+        default:
+          transacao.tipo satisfies never;
+          throw new Error('Tipo de transação não identificado');  
+      }
+    },contaInicial.saldo);
+    return novoSaldo;
   }
 
   processarTransacao(transacao:Transacao){
